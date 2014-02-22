@@ -52,15 +52,15 @@ CGPoint touchPoint;
     
     
     // should go elsewhere
-    _sector0 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector1 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector2 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector3 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector4 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector5 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector6 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector7 = [CCBReader load:@"sectors/lvl0/Sector000"];
-    _sector8 = [CCBReader load:@"sectors/lvl0/Sector000"];
+    [_sector0 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector1 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector2 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector3 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector4 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector5 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector6 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector7 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
+    [_sector8 addChild: [CCBReader load:@"sectors/lvl0/Sector000"]];
 }
 
 -(void) exitLevel {

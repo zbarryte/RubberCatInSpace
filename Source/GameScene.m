@@ -53,22 +53,21 @@ NSMutableArray *sectors;
     float $wSector = _contentNode.boundingBox.size.width/kSectorsCols;
     float $hSector = _contentNode.boundingBox.size.height/kSectorsRows;
     for (uint i = 0; i < kSectorsCols; i++) {
+        NSMutableArray *$col = [NSMutableArray array];
         for (uint j = 0; j < kSectorsRows; j++) {
             // create a new sector
             RCSSector *$sector = [RCSSector node];
-            [sectors addObject:$sector];
+            [$col addObject:$sector];
             // position sector
             float $xSector = (i + 0.5)*$wSector;
             float $ySector = (j + 0.5)*$hSector;
             $sector.position = ccp($xSector,$ySector);
-            NSLog(@"sector put at (%f,%f)",$xSector,$ySector);
-            // populate the sector with a random configuration (by adding the config as a child)
-            // the obstacle configurations are made in Sprite Builder, because yeah.
-            CCNode *$config = [CCBReader load:@"sectors/lvl0/Sector000"];
-            [$sector addChild:$config];
+            // configure the sector
+            [$sector configure];
             // Don't forget to add the sector to the physics node. Seriously. It needs physics.
             [_physicsNode addChild:$sector];
         }
+        [sectors addObject:$col];
     }
 }
 
@@ -137,8 +136,48 @@ NSMutableArray *sectors;
         // move the content node first, then the cat, to prevent screen jump
         CGPoint $contentPos = _contentNode.position;
         _contentNode.position = ccp($contentPos.x - $dx, $contentPos.y - $dy);
+        // reconfigure everything before moving the cat, so that collisions aren't wonky
+        [self reconfigureAllSectorsMovingDx:$dx Dy:$dy];
+        // okay, now move the cat
         _rubberCat.position = ccp($catPos.x + $dx, $catPos.y + $dy);
+        NSLog(@"_contentNode pos (%f,%f)",_contentNode.position.x,_contentNode.position.y);
         
+    }
+}
+
+-(void) reconfigureAllSectorsMovingDx:(float)$dx Dy:(float)$dy {
+    // set directions
+    int $di = 0;
+    int $dj = 0;
+    if ($dx > 0) {$di += 1;}
+    else if ($dx < 0) {$di -= 1;}
+    if ($dy > 0) {$dj += 1;}
+    else if ($dy < 0) {$dj -= 1;}
+    // preset the configurations
+    for (uint i = 0; i < sectors.count; i++) {
+        NSMutableArray *$cols = [sectors objectAtIndex:i];
+        for (uint j = 0; j < $cols.count; j++) {
+            RCSSector *$sector = [$cols objectAtIndex:j];
+            int $iNew = i + $di;
+            int $jNew = j + $dj;
+            if (0 <= $iNew && $iNew < kSectorsCols &&
+                0 <= $jNew && $jNew < kSectorsRows) {
+                NSLog(@"preset new");
+                RCSSector *$sectorNew = [[sectors objectAtIndex:$iNew] objectAtIndex:$jNew];
+                [$sector presetConfiguretaionFromSector:$sectorNew];
+            } else {
+                NSLog(@"don't...");
+                [$sector presetConfiguretaionFromSector:nil];
+            }
+        }
+    }
+    // reconfigure everything
+    for (uint i = 0; i < sectors.count; i++) {
+        NSMutableArray *$cols = [sectors objectAtIndex:i];
+        for (uint j = 0; j < $cols.count; j++) {
+            RCSSector *$sector = [$cols objectAtIndex:j];
+            [$sector configure];
+        }
     }
 }
 

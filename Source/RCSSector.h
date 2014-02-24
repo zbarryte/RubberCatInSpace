@@ -10,4 +10,9 @@
 
 @interface RCSSector : CCNode
 
+@property (nonatomic,strong) NSString *configurationString;
+
+-(void) configure;
+-(void) presetConfiguretaionFromSector:(RCSSector *)$sector;
+
 @end

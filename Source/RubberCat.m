@@ -55,6 +55,7 @@ const uint kAngMax = 2;
     // ang vel
     float $ang = ((float)(arc4random()%kAngMax) - kAngMax/2.f)*0.22;
     self.physicsBody.angularVelocity += $ang;
+//    self.physicsBody.velocity = ccp(-1000,0);
 }
 
 //-(void) update:(CCTime)delta {

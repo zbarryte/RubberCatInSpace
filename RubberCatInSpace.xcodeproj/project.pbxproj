@@ -35,7 +35,6 @@
 		B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
-		ED26033118B8868300E12BB5 /* Sector000.m in Sources */ = {isa = PBXBuildFile; fileRef = ED26033018B8868300E12BB5 /* Sector000.m */; };
 		ED7781F918BBAF3B00111796 /* RCSSector.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7781F818BBAF3B00111796 /* RCSSector.m */; };
 		EDA0653718BAA8E400963E56 /* spr_cat in Resources */ = {isa = PBXBuildFile; fileRef = EDA0653518BAA8E400963E56 /* spr_cat */; };
 		EDA0653818BAA8E400963E56 /* spr_obstacles in Resources */ = {isa = PBXBuildFile; fileRef = EDA0653618BAA8E400963E56 /* spr_obstacles */; };
@@ -98,8 +97,6 @@
 		B77F1B3F17B978D7009739AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B77F1B4117B978D7009739AE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
-		ED26032F18B8868300E12BB5 /* Sector000.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sector000.h; path = Source/Sector000.h; sourceTree = "<group>"; };
-		ED26033018B8868300E12BB5 /* Sector000.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sector000.m; path = Source/Sector000.m; sourceTree = "<group>"; };
 		ED7781F718BBAF3B00111796 /* RCSSector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCSSector.h; path = Source/RCSSector.h; sourceTree = "<group>"; };
 		ED7781F818BBAF3B00111796 /* RCSSector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCSSector.m; path = Source/RCSSector.m; sourceTree = "<group>"; };
 		EDA0653518BAA8E400963E56 /* spr_cat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = spr_cat; sourceTree = "<group>"; };
@@ -272,8 +269,6 @@
 			children = (
 				ED7781F718BBAF3B00111796 /* RCSSector.h */,
 				ED7781F818BBAF3B00111796 /* RCSSector.m */,
-				ED26032F18B8868300E12BB5 /* Sector000.h */,
-				ED26033018B8868300E12BB5 /* Sector000.m */,
 			);
 			name = Sectors;
 			sourceTree = "<group>";
@@ -407,7 +402,6 @@
 				EDA2C5F718B66DEB00A2E389 /* RBArm.m in Sources */,
 				EDA2C5FA18B66DFB00A2E389 /* RBLeg.m in Sources */,
 				EDA2C5FD18B66EF900A2E389 /* RCFlailable.m in Sources */,
-				ED26033118B8868300E12BB5 /* Sector000.m in Sources */,
 				ED7781F918BBAF3B00111796 /* RCSSector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

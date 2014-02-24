@@ -168,7 +168,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>assets/cat_body.png</string>
+							<string>spr_cat/cat_body.png</string>
 						</array>
 					</dict>
 					<dict>

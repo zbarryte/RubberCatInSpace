@@ -126,7 +126,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>obstacles/block_00.png</string>
+					<string>spr_obstacles/block_00.png</string>
 				</array>
 			</dict>
 			<dict>
@@ -143,8 +143,6 @@
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

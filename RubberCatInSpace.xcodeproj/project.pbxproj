@@ -35,15 +35,16 @@
 		B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
-		ED26032618B86EBD00E12BB5 /* obstacles in Resources */ = {isa = PBXBuildFile; fileRef = ED26032518B86EBD00E12BB5 /* obstacles */; };
 		ED26033118B8868300E12BB5 /* Sector000.m in Sources */ = {isa = PBXBuildFile; fileRef = ED26033018B8868300E12BB5 /* Sector000.m */; };
+		ED7781F918BBAF3B00111796 /* RCSSector.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7781F818BBAF3B00111796 /* RCSSector.m */; };
+		EDA0653718BAA8E400963E56 /* spr_cat in Resources */ = {isa = PBXBuildFile; fileRef = EDA0653518BAA8E400963E56 /* spr_cat */; };
+		EDA0653818BAA8E400963E56 /* spr_obstacles in Resources */ = {isa = PBXBuildFile; fileRef = EDA0653618BAA8E400963E56 /* spr_obstacles */; };
 		EDA0AD2118B44BAD002586D9 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA0AD2018B44BAD002586D9 /* GameScene.m */; };
 		EDA0AD2518B44F9A002586D9 /* RCSScene.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA0AD2418B44F9A002586D9 /* RCSScene.m */; };
 		EDA0AD2818B451E5002586D9 /* RubberCat.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA0AD2718B451E5002586D9 /* RubberCat.m */; };
 		EDA2C5F718B66DEB00A2E389 /* RBArm.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA2C5F618B66DEB00A2E389 /* RBArm.m */; };
 		EDA2C5FA18B66DFB00A2E389 /* RBLeg.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA2C5F918B66DFB00A2E389 /* RBLeg.m */; };
 		EDA2C5FD18B66EF900A2E389 /* RCFlailable.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA2C5FC18B66EF900A2E389 /* RCFlailable.m */; };
-		EDBAA45918B5A7F300C8C42A /* assets in Resources */ = {isa = PBXBuildFile; fileRef = EDBAA45818B5A7F300C8C42A /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,9 +98,12 @@
 		B77F1B3F17B978D7009739AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B77F1B4117B978D7009739AE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
-		ED26032518B86EBD00E12BB5 /* obstacles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = obstacles; sourceTree = "<group>"; };
 		ED26032F18B8868300E12BB5 /* Sector000.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sector000.h; path = Source/Sector000.h; sourceTree = "<group>"; };
 		ED26033018B8868300E12BB5 /* Sector000.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sector000.m; path = Source/Sector000.m; sourceTree = "<group>"; };
+		ED7781F718BBAF3B00111796 /* RCSSector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCSSector.h; path = Source/RCSSector.h; sourceTree = "<group>"; };
+		ED7781F818BBAF3B00111796 /* RCSSector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCSSector.m; path = Source/RCSSector.m; sourceTree = "<group>"; };
+		EDA0653518BAA8E400963E56 /* spr_cat */ = {isa = PBXFileReference; lastKnownFileType = folder; path = spr_cat; sourceTree = "<group>"; };
+		EDA0653618BAA8E400963E56 /* spr_obstacles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = spr_obstacles; sourceTree = "<group>"; };
 		EDA0AD1F18B44BAD002586D9 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = Source/GameScene.h; sourceTree = "<group>"; };
 		EDA0AD2018B44BAD002586D9 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameScene.m; path = Source/GameScene.m; sourceTree = "<group>"; };
 		EDA0AD2318B44F9A002586D9 /* RCSScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCSScene.h; path = Source/RCSScene.h; sourceTree = "<group>"; };
@@ -112,7 +116,6 @@
 		EDA2C5F918B66DFB00A2E389 /* RBLeg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RBLeg.m; path = Source/RBLeg.m; sourceTree = "<group>"; };
 		EDA2C5FB18B66EF900A2E389 /* RCFlailable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCFlailable.h; path = Source/RCFlailable.h; sourceTree = "<group>"; };
 		EDA2C5FC18B66EF900A2E389 /* RCFlailable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCFlailable.m; path = Source/RCFlailable.m; sourceTree = "<group>"; };
-		EDBAA45818B5A7F300C8C42A /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,24 +150,10 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B737893D1807617C0076A88C /* AppDelegate.h */,
-				B737893E1807617C0076A88C /* AppDelegate.m */,
-				B7378992180767190076A88C /* MainScene.h */,
-				B7378993180767190076A88C /* MainScene.m */,
-				EDA0AD1F18B44BAD002586D9 /* GameScene.h */,
-				EDA0AD2018B44BAD002586D9 /* GameScene.m */,
-				ED26032F18B8868300E12BB5 /* Sector000.h */,
-				ED26033018B8868300E12BB5 /* Sector000.m */,
-				EDA0AD2318B44F9A002586D9 /* RCSScene.h */,
-				EDA0AD2418B44F9A002586D9 /* RCSScene.m */,
-				EDA0AD2618B451E5002586D9 /* RubberCat.h */,
-				EDA0AD2718B451E5002586D9 /* RubberCat.m */,
-				EDA2C5F518B66DEB00A2E389 /* RBArm.h */,
-				EDA2C5F618B66DEB00A2E389 /* RBArm.m */,
-				EDA2C5FB18B66EF900A2E389 /* RCFlailable.h */,
-				EDA2C5FC18B66EF900A2E389 /* RCFlailable.m */,
-				EDA2C5F818B66DFB00A2E389 /* RBLeg.h */,
-				EDA2C5F918B66DFB00A2E389 /* RBLeg.m */,
+				ED7781FC18BBAFBE00111796 /* Preset */,
+				ED7781FB18BBAFA800111796 /* Scenes */,
+				ED7781FD18BBAFF200111796 /* Sectors */,
+				ED7781FE18BBB00D00111796 /* Sprites */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -238,8 +227,8 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ED26032518B86EBD00E12BB5 /* obstacles */,
-				EDBAA45818B5A7F300C8C42A /* assets */,
+				EDA0653518BAA8E400963E56 /* spr_cat */,
+				EDA0653618BAA8E400963E56 /* spr_obstacles */,
 				B73789911807667A0076A88C /* Icons */,
 				B737893A180761570076A88C /* Published-iOS */,
 			);
@@ -254,6 +243,54 @@
 				B73789861807631A0076A88C /* Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ED7781FB18BBAFA800111796 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				EDA0AD2318B44F9A002586D9 /* RCSScene.h */,
+				EDA0AD2418B44F9A002586D9 /* RCSScene.m */,
+				B7378992180767190076A88C /* MainScene.h */,
+				B7378993180767190076A88C /* MainScene.m */,
+				EDA0AD1F18B44BAD002586D9 /* GameScene.h */,
+				EDA0AD2018B44BAD002586D9 /* GameScene.m */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		ED7781FC18BBAFBE00111796 /* Preset */ = {
+			isa = PBXGroup;
+			children = (
+				B737893D1807617C0076A88C /* AppDelegate.h */,
+				B737893E1807617C0076A88C /* AppDelegate.m */,
+			);
+			name = Preset;
+			sourceTree = "<group>";
+		};
+		ED7781FD18BBAFF200111796 /* Sectors */ = {
+			isa = PBXGroup;
+			children = (
+				ED7781F718BBAF3B00111796 /* RCSSector.h */,
+				ED7781F818BBAF3B00111796 /* RCSSector.m */,
+				ED26032F18B8868300E12BB5 /* Sector000.h */,
+				ED26033018B8868300E12BB5 /* Sector000.m */,
+			);
+			name = Sectors;
+			sourceTree = "<group>";
+		};
+		ED7781FE18BBB00D00111796 /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				EDA0AD2618B451E5002586D9 /* RubberCat.h */,
+				EDA0AD2718B451E5002586D9 /* RubberCat.m */,
+				EDA2C5F518B66DEB00A2E389 /* RBArm.h */,
+				EDA2C5F618B66DEB00A2E389 /* RBArm.m */,
+				EDA2C5FB18B66EF900A2E389 /* RCFlailable.h */,
+				EDA2C5FC18B66EF900A2E389 /* RCFlailable.m */,
+				EDA2C5F818B66DFB00A2E389 /* RBLeg.h */,
+				EDA2C5F918B66DFB00A2E389 /* RBLeg.m */,
+			);
+			name = Sprites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,8 +386,8 @@
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
 				B7378977180762440076A88C /* Default.png in Resources */,
 				B71F5911188484E7003F4D28 /* iPad-old.png in Resources */,
-				EDBAA45918B5A7F300C8C42A /* assets in Resources */,
-				ED26032618B86EBD00E12BB5 /* obstacles in Resources */,
+				EDA0653718BAA8E400963E56 /* spr_cat in Resources */,
+				EDA0653818BAA8E400963E56 /* spr_obstacles in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +408,7 @@
 				EDA2C5FA18B66DFB00A2E389 /* RBLeg.m in Sources */,
 				EDA2C5FD18B66EF900A2E389 /* RCFlailable.m in Sources */,
 				ED26033118B8868300E12BB5 /* Sector000.m in Sources */,
+				ED7781F918BBAF3B00111796 /* RCSSector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,10 +467,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -454,7 +492,6 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = RubberCatInSpace;
-				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -463,10 +500,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
@@ -486,7 +523,6 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = RubberCatInSpace;
-				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

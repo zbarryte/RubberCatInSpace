@@ -164,7 +164,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>assets/cat_head.png</string>
+							<string>spr_cat/cat_head.png</string>
 						</array>
 					</dict>
 					<dict>

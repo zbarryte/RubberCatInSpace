@@ -24,18 +24,17 @@ const uint kYForceMax = 44444;
 const float kChangeVelPeriod = 2.4;
 const uint kAngMax = 2;
 
++(id) cat {
+    return [CCBReader load:NSStringFromClass(self)];
+}
+
 -(void) didLoadFromCCB {
-    // rescale
-    self.scale = 0.5;
     // darken back arm and leg
     CCColor *$colorDark = [CCColor colorWithRed:0.5f green:0.5f blue:0.5f];
     _armB.color = $colorDark;
     _legB.color = $colorDark;
     // hide the bubble until pressed
     [self hideBubble];
-    // enable touch
-    self.userInteractionEnabled = YES;
-    
     
     [self begin];
 }
@@ -49,14 +48,13 @@ const uint kAngMax = 2;
 }
 
 -(void) changeVelocity {
-//    // tang vel
-//    float $xForce = (float)(arc4random()%kXForceMax) - kXForceMax/2.f;
-//    float $yForce = (float)(arc4random()%kYForceMax) - kYForceMax/2.f;
-//    self.physicsBody.force = ccp($xForce,$yForce);
-//    // ang vel
-//    float $ang = ((float)(arc4random()%kAngMax) - kAngMax/2.f)*0.22;
-//    self.physicsBody.angularVelocity += $ang;
-    self.physicsBody.velocity = ccp(-1000,0);
+    // tang vel
+    float $xForce = (float)(arc4random()%kXForceMax) - kXForceMax/2.f;
+    float $yForce = (float)(arc4random()%kYForceMax) - kYForceMax/2.f;
+    self.physicsBody.force = ccp($xForce,$yForce);
+    // ang vel
+    float $ang = ((float)(arc4random()%kAngMax) - kAngMax/2.f)*0.22;
+    self.physicsBody.angularVelocity += $ang;
 }
 
 //-(void) update:(CCTime)delta {

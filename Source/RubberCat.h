@@ -10,6 +10,7 @@
 
 @interface RubberCat : CCNode
 
++(id) cat;
 -(void) begin;
 -(void) hideBubble;
 -(void) showBubble;

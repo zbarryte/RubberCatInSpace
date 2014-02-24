@@ -313,7 +313,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>assets/cat_tail.png</string>
+							<string>spr_cat/cat_tail.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -330,6 +330,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>

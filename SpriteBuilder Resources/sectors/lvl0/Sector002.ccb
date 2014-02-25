@@ -105,9 +105,9 @@
 						<string>Color3</string>
 						<key>value</key>
 						<array>
-							<real>0.85826820135116577</real>
-							<real>0.86657935380935669</real>
-							<real>0.87000000476837158</real>
+							<real>0.14950910210609436</real>
+							<real>0.60707336664199829</real>
+							<real>0.35138887166976929</real>
 							<real>1</real>
 						</array>
 					</dict>
@@ -278,7 +278,7 @@
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
-			<real>134.02949523925781</real>
+			<real>128</real>
 			<key>sequenceId</key>
 			<integer>0</integer>
 			<key>soundChannel</key>

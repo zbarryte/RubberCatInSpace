@@ -16,10 +16,15 @@
     CCNode *_schroedingersBox;
     CCPhysicsNode *_physicsNode;
     RubberCat *_rubberCat;
+    
+    float xScreen;
+    float yScreen;
+    
+    BOOL isTouching;
+    CGPoint touchPoint;
+    
+    NSMutableArray *sectors;
 }
-
-float xScreen;
-float yScreen;
 
 const uint kMargin = 22;
 const float kAdjustMentPush = 1111;
@@ -27,12 +32,8 @@ const uint kBubbleSensitivity = 22;
 
 const uint kNumSectors = 1;
 
-BOOL isTouching;
-CGPoint touchPoint;
-
 const uint kSectorsRows = 3;
 const uint kSectorsCols = 3;
-NSMutableArray *sectors;
 
 -(void) didLoadFromCCB {
     // get screen coords
@@ -59,8 +60,8 @@ NSMutableArray *sectors;
             RCSSector *$sector = [RCSSector node];
             [$col addObject:$sector];
             // position sector
-            float $xSector = (i + 0.5)*$wSector;
-            float $ySector = (j + 0.5)*$hSector;
+            float $xSector = (i + 0.0)*$wSector;
+            float $ySector = (j + 0.0)*$hSector;
             $sector.position = ccp($xSector,$ySector);
             // configure the sector
             [$sector configure];
@@ -140,7 +141,7 @@ NSMutableArray *sectors;
         [self reconfigureAllSectorsMovingDx:$dx Dy:$dy];
         // okay, now move the cat
         _rubberCat.position = ccp($catPos.x + $dx, $catPos.y + $dy);
-        NSLog(@"_contentNode pos (%f,%f)",_contentNode.position.x,_contentNode.position.y);
+//        NSLog(@"_contentNode pos (%f,%f)",_contentNode.position.x,_contentNode.position.y);
         
     }
 }
@@ -153,20 +154,31 @@ NSMutableArray *sectors;
     else if ($dx < 0) {$di -= 1;}
     if ($dy > 0) {$dj += 1;}
     else if ($dy < 0) {$dj -= 1;}
+    
+//    NSLog(@"di = %d; dj = %d; directions: %@, %@, %@, %@",$di,$dj,($dx > 0)?@"R":@"",($dx < 0)?@"L":@"",($dy > 0)?@"U":@"",($dy < 0)?@"D":@"");
+    
+    NSLog(@"dx,dy = %f,%f",$dx,$dy);
+    
     // preset the configurations
     for (uint i = 0; i < sectors.count; i++) {
         NSMutableArray *$cols = [sectors objectAtIndex:i];
         for (uint j = 0; j < $cols.count; j++) {
             RCSSector *$sector = [$cols objectAtIndex:j];
-            int $iNew = i + $di;
-            int $jNew = j + $dj;
+            int $iNew = i - $di;
+            int $jNew = j - $dj;
+            
+            NSLog(@"(%d,%d) replaced by (%d,%d)",i,j,$iNew,$jNew);
+            
             if (0 <= $iNew && $iNew < kSectorsCols &&
                 0 <= $jNew && $jNew < kSectorsRows) {
-                NSLog(@"preset new");
+                
                 RCSSector *$sectorNew = [[sectors objectAtIndex:$iNew] objectAtIndex:$jNew];
+                
+//                NSLog(@"locations: (%f,%f) -> (%f,%f)",$sector.position.x,$sector.position.y,$sectorNew.position.x,$sectorNew.position.y);
+                
                 [$sector presetConfiguretaionFromSector:$sectorNew];
+//                [$sectorNew presetConfiguretaionFromSector:$sector];
             } else {
-                NSLog(@"don't...");
                 [$sector presetConfiguretaionFromSector:nil];
             }
         }

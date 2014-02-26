@@ -32,10 +32,10 @@
 //    NSLog(@"%@",self.configurationString);
     // generate a random config if there isn't one already specified by a move or something
     if (!nextConfigurationString) {
-        NSLog(@"nil -> (%f,%f)",self.position.x,self.position.y);
+//        NSLog(@"nil -> (%f,%f)",self.position.x,self.position.y);
         self.configurationString = [configurations objectAtIndex:arc4random()%(configurations.count)];
     } else {
-        NSLog(@"groovy -> (%f,%f) %@",self.position.x,self.position.y,nextConfigurationString);
+//        NSLog(@"groovy -> (%f,%f) %@",self.position.x,self.position.y,nextConfigurationString);
         self.configurationString = nextConfigurationString;
         nextConfigurationString = nil; 
     }

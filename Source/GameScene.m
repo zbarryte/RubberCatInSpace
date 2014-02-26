@@ -12,10 +12,13 @@
 #import "RCSSector.h"
 
 @implementation GameScene {
+    /* created in Sprite Builder */
     CCNode *_contentNode;
     CCNode *_schroedingersBox;
     CCPhysicsNode *_physicsNode;
     RubberCat *_rubberCat;
+    CCNode *_cameraBox;
+    CCNode *_springNode;
     
     float xScreen;
     float yScreen;
@@ -24,6 +27,9 @@
     CGPoint touchPoint;
     
     NSMutableArray *sectors;
+    
+//    CCActionFollow *follow;
+    CCPhysicsJoint *springJoint;
 }
 
 const uint kMargin = 22;
@@ -79,11 +85,20 @@ const uint kSectorsCols = 3;
     // position rubber cat
     CGSize $sizePhys = _physicsNode.boundingBox.size;
     _rubberCat.position = ccp($sizePhys.width/2,$sizePhys.height/2);
+    // create spring node, the camera will track this rather than the cat so it's less boring
+    _springNode.position = _rubberCat.position;
+    // make sure it doesn't collide with stuff
+    _springNode.physicsBody.collisionMask = @[];
+    // also, make its mass tiny, so it doesn't pull much
+    _springNode.physicsBody.mass = 0.001f;
+    // create the spring joint
+    springJoint = [CCPhysicsJoint connectedSpringJointWithBodyA:_rubberCat.physicsBody bodyB:_springNode.physicsBody anchorA:ccp(0.5f,0.5f) anchorB:ccp(0.5f,0.5f) restLength:0 stiffness:1 damping:22];
 }
 
 -(void) setupCameralikeBehavior {
     // camera follows rubber cat
-    CCActionFollow *$follow = [CCActionFollow actionWithTarget:_rubberCat worldBoundary:_contentNode.boundingBox];
+    CCActionFollow *$follow = [CCActionFollow actionWithTarget:_springNode worldBoundary:_contentNode.boundingBox];
+//    CCActionFollow *$follow = [CCActionFollow actionWithTarget:_rubberCat worldBoundary:_contentNode.boundingBox];
     [_contentNode runAction:$follow];
 }
 
@@ -96,6 +111,7 @@ const uint kSectorsCols = 3;
 }
 
 -(void)update:(CCTime)$dt {
+    NSLog(@"(%f,%f) <- spring",_springNode.position.x,_springNode.position.y);
     [self checkCatBubble];
     [self checkCatInSchroedingersBox];
 }
@@ -121,8 +137,9 @@ const uint kSectorsCols = 3;
     // Is the cat in the box???  I hope so!
     CGRect $box = _schroedingersBox.boundingBox;
     CGPoint $catPos = _rubberCat.position;
-    if (!CGRectContainsPoint($box, $catPos)) {
-        NSLog(@":(");
+    CGPoint $springPos = _springNode.position;
+    if (!CGRectContainsPoint($box, $springPos)) {
+//        NSLog(@":(");
         // If not, put it in the box!  Dammit.
         // (base this on which side of the box the cat is)
         float $magnitudeDx = $box.size.width/2;
@@ -141,8 +158,7 @@ const uint kSectorsCols = 3;
         [self reconfigureAllSectorsMovingDx:$dx Dy:$dy];
         // okay, now move the cat
         _rubberCat.position = ccp($catPos.x + $dx, $catPos.y + $dy);
-//        NSLog(@"_contentNode pos (%f,%f)",_contentNode.position.x,_contentNode.position.y);
-        
+        _springNode.position = ccp($springPos.x + $dx, $springPos.y + $dy);
     }
 }
 
@@ -157,7 +173,7 @@ const uint kSectorsCols = 3;
     
 //    NSLog(@"di = %d; dj = %d; directions: %@, %@, %@, %@",$di,$dj,($dx > 0)?@"R":@"",($dx < 0)?@"L":@"",($dy > 0)?@"U":@"",($dy < 0)?@"D":@"");
     
-    NSLog(@"dx,dy = %f,%f",$dx,$dy);
+//    NSLog(@"dx,dy = %f,%f",$dx,$dy);
     
     // preset the configurations
     for (uint i = 0; i < sectors.count; i++) {
@@ -167,19 +183,13 @@ const uint kSectorsCols = 3;
             int $iNew = i - $di;
             int $jNew = j - $dj;
             
-            NSLog(@"(%d,%d) replaced by (%d,%d)",i,j,$iNew,$jNew);
-            
+//            NSLog(@"(%d,%d) replaced by (%d,%d)",i,j,$iNew,$jNew);
+            // of course, only preset the sector if the neighbor exists
             if (0 <= $iNew && $iNew < kSectorsCols &&
                 0 <= $jNew && $jNew < kSectorsRows) {
-                
                 RCSSector *$sectorNew = [[sectors objectAtIndex:$iNew] objectAtIndex:$jNew];
-                
 //                NSLog(@"locations: (%f,%f) -> (%f,%f)",$sector.position.x,$sector.position.y,$sectorNew.position.x,$sectorNew.position.y);
-                
                 [$sector presetConfiguretaionFromSector:$sectorNew];
-//                [$sectorNew presetConfiguretaionFromSector:$sector];
-            } else {
-                [$sector presetConfiguretaionFromSector:nil];
             }
         }
     }

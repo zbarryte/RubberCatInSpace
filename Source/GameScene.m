@@ -18,7 +18,6 @@
     CCPhysicsNode *_physicsNode;
     RubberCat *_rubberCat;
     CCNode *_cameraBox;
-    CCNode *_springNode;
     
     float xScreen;
     float yScreen;
@@ -28,8 +27,7 @@
     
     NSMutableArray *sectors;
     
-//    CCActionFollow *follow;
-    CCPhysicsJoint *springJoint;
+    CCAction *follow;
 }
 
 const uint kMargin = 22;
@@ -85,20 +83,11 @@ const uint kSectorsCols = 3;
     // position rubber cat
     CGSize $sizePhys = _physicsNode.boundingBox.size;
     _rubberCat.position = ccp($sizePhys.width/2,$sizePhys.height/2);
-    // create spring node, the camera will track this rather than the cat so it's less boring
-    _springNode.position = _rubberCat.position;
-    // make sure it doesn't collide with stuff
-    _springNode.physicsBody.collisionMask = @[];
-    // also, make its mass tiny, so it doesn't pull much
-    _springNode.physicsBody.mass = 0.001f;
-    // create the spring joint
-    springJoint = [CCPhysicsJoint connectedSpringJointWithBodyA:_rubberCat.physicsBody bodyB:_springNode.physicsBody anchorA:ccp(0.5f,0.5f) anchorB:ccp(0.5f,0.5f) restLength:0 stiffness:1 damping:22];
 }
 
 -(void) setupCameralikeBehavior {
     // camera follows rubber cat
-    CCActionFollow *$follow = [CCActionFollow actionWithTarget:_springNode worldBoundary:_contentNode.boundingBox];
-//    CCActionFollow *$follow = [CCActionFollow actionWithTarget:_rubberCat worldBoundary:_contentNode.boundingBox];
+    CCActionFollow *$follow = [CCActionFollow actionWithTarget:_rubberCat worldBoundary:_contentNode.boundingBox];
     [_contentNode runAction:$follow];
 }
 
@@ -111,10 +100,26 @@ const uint kSectorsCols = 3;
 }
 
 -(void)update:(CCTime)$dt {
-    NSLog(@"(%f,%f) <- spring",_springNode.position.x,_springNode.position.y);
+//    [self checkCatInCameraBox];
     [self checkCatBubble];
     [self checkCatInSchroedingersBox];
 }
+
+//-(void) checkCatInCameraBox {
+//    CGRect $box = _cameraBox.boundingBox;
+//    CGPoint $catPos = _rubberCat.position;
+//    // track the cat if it's outside the box
+//    if (!CGRectContainsPoint($box,$catPos)) {
+////        follow = [CCActionFollow actionWithTarget:_rubberCat worldBoundary:_contentNode.boundingBox];
+//        follow = [CCActionMoveTo actionWithDuration:1.00 position:ccp(-$catPos.x,-$catPos.y)];
+//        [_contentNode runAction:follow];
+//    } else if (follow) {
+//        // otherwise, stop tracking it, it's in the box
+//        // don't bother turning off tracking if the cat's already not tracked
+//        [_contentNode stopAction:follow];
+//        follow = nil;
+//    }
+//}
 
 -(void) checkCatBubble {
     // only if the player is touching
@@ -137,8 +142,7 @@ const uint kSectorsCols = 3;
     // Is the cat in the box???  I hope so!
     CGRect $box = _schroedingersBox.boundingBox;
     CGPoint $catPos = _rubberCat.position;
-    CGPoint $springPos = _springNode.position;
-    if (!CGRectContainsPoint($box, $springPos)) {
+    if (!CGRectContainsPoint($box, $catPos)) {
 //        NSLog(@":(");
         // If not, put it in the box!  Dammit.
         // (base this on which side of the box the cat is)
@@ -158,7 +162,6 @@ const uint kSectorsCols = 3;
         [self reconfigureAllSectorsMovingDx:$dx Dy:$dy];
         // okay, now move the cat
         _rubberCat.position = ccp($catPos.x + $dx, $catPos.y + $dy);
-        _springNode.position = ccp($springPos.x + $dx, $springPos.y + $dy);
     }
 }
 

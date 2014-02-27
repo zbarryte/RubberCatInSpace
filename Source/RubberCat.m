@@ -24,6 +24,8 @@ const uint kYForceMax = 44444;
 const float kChangeVelPeriod = 2.4;
 const uint kAngMax = 2;
 
+const float kVelMax = 222;
+
 +(id) cat {
     return [CCBReader load:NSStringFromClass(self)];
 }
@@ -34,12 +36,11 @@ const uint kAngMax = 2;
     _armB.color = $colorDark;
     _legB.color = $colorDark;
     // hide the bubble until pressed
-    [self hideBubble];
     
     [self begin];
 }
 
--(void)hideBubble {_bubble.visible = NO;}
+-(void)hideBubble {self.justStoppedBubbling = _bubble.visible; _bubble.visible = NO;}
 -(void)showBubble {_bubble.visible = YES;}
 
 -(void) begin {
@@ -58,9 +59,21 @@ const uint kAngMax = 2;
 //    self.physicsBody.velocity = ccp(100,-100);
 }
 
-//-(void) update:(CCTime)delta {
+-(void) update:(CCTime)delta {
 //    NSLog(@"velocity = (%f,%f)",self.physicsBody.velocity.x,self.physicsBody.velocity.y);
 //    NSLog(@"angularVelocity = %f",self.physicsBody.angularVelocity);
-//}
+    [self checkIfGoingTooFast];
+}
+
+-(void) checkIfGoingTooFast {
+    // don't go too fast!
+    float $vx = self.physicsBody.velocity.x;
+    float $vy = self.physicsBody.velocity.y;
+    if ($vx > kVelMax) {$vx = kVelMax;}
+    else if ($vx < -kVelMax) {$vx = -kVelMax;}
+    if ($vy > kVelMax) {$vy = kVelMax;}
+    else if ($vy < -kVelMax) {$vy = -kVelMax;}
+    self.physicsBody.velocity = ccp($vx,$vy);
+}
 
 @end

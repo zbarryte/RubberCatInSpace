@@ -17,7 +17,7 @@
     CCNode *_schroedingersBox;
     CCPhysicsNode *_physicsNode;
     RubberCat *_rubberCat;
-    CCNode *_cameraBox;
+//    CCNode *_cameraBox;
     
     float xScreen;
     float yScreen;
@@ -28,16 +28,23 @@
     NSMutableArray *sectors;
     
     CCAction *follow;
+    CCNode *followNode;
+    
+    int coldCounter;
 }
 
 const uint kMargin = 22;
 const float kAdjustMentPush = 1111;
-const uint kBubbleSensitivity = 22;
+const uint kBubbleSensitivity = 44;
 
 const uint kNumSectors = 1;
 
 const uint kSectorsRows = 3;
 const uint kSectorsCols = 3;
+
+const float kFollowVel = 5;
+//const float kFollowVelMax = 444;
+const uint kColdCounterMax = 5;
 
 -(void) didLoadFromCCB {
     // get screen coords
@@ -48,6 +55,8 @@ const uint kSectorsCols = 3;
     [self addSectors];
     [self addRubberCat];
     [self setupCameralikeBehavior];
+    
+    coldCounter = kColdCounterMax;
     
     // allow touch
     self.userInteractionEnabled = YES;
@@ -86,9 +95,17 @@ const uint kSectorsCols = 3;
 }
 
 -(void) setupCameralikeBehavior {
-    // camera follows rubber cat
-    CCActionFollow *$follow = [CCActionFollow actionWithTarget:_rubberCat worldBoundary:_contentNode.boundingBox];
-    [_contentNode runAction:$follow];
+    // create follow node
+    followNode = [CCNode node];
+    followNode.physicsBody = [CCPhysicsBody bodyWithCircleOfRadius:1 andCenter:_rubberCat.position];
+    followNode.physicsBody.type = CCPhysicsBodyTypeDynamic;
+    followNode.physicsBody.affectedByGravity = NO;
+    followNode.physicsBody.collisionMask = @[]; // don't collide with stuff
+    [_physicsNode addChild:followNode];
+    followNode.position = _rubberCat.position;
+    // camera follows follow node, which follows the cat
+    follow = [CCActionFollow actionWithTarget:followNode worldBoundary:_contentNode.boundingBox];
+    [_contentNode runAction:follow];
 }
 
 // called on button presses
@@ -100,9 +117,87 @@ const uint kSectorsCols = 3;
 }
 
 -(void)update:(CCTime)$dt {
+    [self moveThatFollowNode];
 //    [self checkCatInCameraBox];
     [self checkCatBubble];
     [self checkCatInSchroedingersBox];
+    [self checkIfCatStoppedBubbling];
+}
+
+-(void) checkIfCatStoppedBubbling {
+    if (!_rubberCat.justStoppedBubbling) {return;}
+    NSLog(@"just stopped bubbling");
+    [self schedule:@selector(runColdTimer) interval:0.044];
+}
+
+-(void) runColdTimer {
+    coldCounter --;
+    NSLog(@"cold counter = %d",coldCounter);
+    if (coldCounter <= 0) {
+        [self lose];
+    }
+}
+
+-(void) lose {
+    NSLog(@"TOOOOOO COLD!");
+    [[CCDirector sharedDirector] replaceScene:[MainScene scene]];
+}
+
+-(void) moveThatFollowNode {
+//    float $dx = 0;
+//    float $dy = 0;
+//    
+////    CGPoint $catPos = _rubberCat.position;
+//    CGPoint $followPos = followNode.position;
+//    CGPoint $followVel = followNode.physicsBody.velocity;
+////    float $deltaX = $catPos.x - $followPos.x;
+////    float $deltaY = $catPos.y - $followPos.y;
+////    followNode.position = ccpAdd(followNode.position, ccp($deltaX,$deltaY));
+//    
+////    float scaleFactor = 10;
+////    followNode.physicsBody.force = ccp($deltaX*scaleFactor,$deltaY*scaleFactor);
+//    
+//    if ($followPos.x < _rubberCat.position.x) {
+//        $dx += kFollowVel;
+//    } else if ($followPos.x > _rubberCat.position.x) {
+//        $dx -= kFollowVel;
+//    }
+//    
+//    if ($followPos.y < _rubberCat.position.y) {
+//        $dy += kFollowVel;
+//    } else if (followNode.position.y > _rubberCat.position.y) {
+//        $dy -= kFollowVel;
+//    }
+////
+//    followNode.physicsBody.velocity = ccp($followVel.x + $dx, $followVel.y + $dy);
+    
+    
+    CGPoint $catPos = _rubberCat.position;
+    CGPoint $followPos = followNode.position;
+    float $deltaX = $catPos.x - $followPos.x;
+    float $deltaY = $catPos.y - $followPos.y;
+//    CGPoint $catVel = _rubberCat.physicsBody.velocity;
+//    followNode.physicsBody.velocity = ccp($deltaX * $catVel.x, $deltaY * $catVel.y);
+    float $scaleFactor = 0.088;
+    followNode.position = ccp($followPos.x + $deltaX*$scaleFactor, $followPos.y + $deltaY*$scaleFactor);
+    
+    
+    
+//    NSLog(@"(%f,%f)",followNode.physicsBody.velocity.x,followNode.physicsBody.velocity.y);
+//
+////    // don't go too fast!
+//    float $distX = abs(_rubberCat.position.x - $followPos.x);
+//    float $distY = abs(_rubberCat.position.y - $followPos.y);
+//    
+////    float $vx = followNode.physicsBody.velocity.x;
+////    float $vy = followNode.physicsBody.velocity.y;
+////    float $followVelMaxX = _rubberCat.physicsBody.velocity.x * 5 * $distX;
+////    float $followVelMaxY = _rubberCat.physicsBody.velocity.y * 5 * $distY;
+////    if ($vx > $followVelMaxX) {$vx = $followVelMaxX;}
+////    else if ($vx < -$followVelMaxX) {$vx = -$followVelMaxX;}
+////    if ($vy > $followVelMaxY) {$vy = $followVelMaxY;}
+////    else if ($vy < -$followVelMaxY) {$vy = -$followVelMaxY;}
+////    followNode.physicsBody.velocity = ccp($vx,$vy);
 }
 
 //-(void) checkCatInCameraBox {
@@ -130,6 +225,8 @@ const uint kSectorsCols = 3;
     float dy = abs($catPoint.y - touchPoint.y);
     // sensitivity can be adjusted, by the way
     if (dx < kBubbleSensitivity && dy < kBubbleSensitivity) {
+        coldCounter = kColdCounterMax;
+        [self unschedule:@selector(runColdTimer)];
         [_rubberCat showBubble];
     } else {
         [_rubberCat hideBubble];
@@ -142,7 +239,9 @@ const uint kSectorsCols = 3;
     // Is the cat in the box???  I hope so!
     CGRect $box = _schroedingersBox.boundingBox;
     CGPoint $catPos = _rubberCat.position;
-    if (!CGRectContainsPoint($box, $catPos)) {
+    // okay, really it's about the follow node
+    CGPoint $followPos = followNode.position;
+    if (!CGRectContainsPoint($box, $followPos)) {
 //        NSLog(@":(");
         // If not, put it in the box!  Dammit.
         // (base this on which side of the box the cat is)
@@ -151,10 +250,10 @@ const uint kSectorsCols = 3;
         float $dx = 0;
         float $dy = 0;
         CGPoint $boxPos = _schroedingersBox.position;
-        if ($catPos.x > $magnitudeDx + $boxPos.x) {$dx -= 2*$magnitudeDx;}
-        else if ($catPos.x < -$magnitudeDx + $boxPos.x) {$dx += 2*$magnitudeDx;}
-        if ($catPos.y > $magnitudeDy + $boxPos.y) {$dy -= 2*$magnitudeDy;}
-        else if ($catPos.y < -$magnitudeDy + $boxPos.y) {$dy += 2*$magnitudeDy;}
+        if ($followPos.x > $magnitudeDx + $boxPos.x) {$dx -= 2*$magnitudeDx;}
+        else if ($followPos.x < -$magnitudeDx + $boxPos.x) {$dx += 2*$magnitudeDx;}
+        if ($followPos.y > $magnitudeDy + $boxPos.y) {$dy -= 2*$magnitudeDy;}
+        else if ($followPos.y < -$magnitudeDy + $boxPos.y) {$dy += 2*$magnitudeDy;}
         // move the content node first, then the cat, to prevent screen jump
         CGPoint $contentPos = _contentNode.position;
         _contentNode.position = ccp($contentPos.x - $dx, $contentPos.y - $dy);
@@ -162,6 +261,7 @@ const uint kSectorsCols = 3;
         [self reconfigureAllSectorsMovingDx:$dx Dy:$dy];
         // okay, now move the cat
         _rubberCat.position = ccp($catPos.x + $dx, $catPos.y + $dy);
+        followNode.position = ccp($followPos.x + $dx, $followPos.y + $dy);
     }
 }
 

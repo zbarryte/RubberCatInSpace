@@ -10,6 +10,8 @@
 
 @interface RubberCat : CCNode
 
+@property (nonatomic,assign) BOOL justStoppedBubbling;
+
 +(id) cat;
 -(void) begin;
 -(void) hideBubble;
